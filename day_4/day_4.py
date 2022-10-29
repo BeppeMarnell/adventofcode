@@ -1,7 +1,7 @@
 class BCard:
     def __init__(self, rows):
         self.row_score = [0 for _ in rows]
-        self.rows = [set(row) for row in rows]
+        self.rows = rows
         self.numbers_got = []
         self.list = [item for sublist in rows for item in sublist]
 
@@ -35,13 +35,15 @@ for i in range(2, len(data)):
     if data[i] == '':
         continue
 
-    if len(tmp_card) == 5:
-        bingo_cards.append(BCard(tmp_card))
-        tmp_card = []
-
     # split the string into a list of numbers
     numbs = [int(numb) for numb in data[i].split(' ') if numb != '']
     tmp_card.append(numbs)
+    print(numbs)
+
+    if len(tmp_card) == 5:
+        bingo_cards.append(BCard(tmp_card))
+        print(len(bingo_cards))
+        tmp_card = []
 
 ## part 1 -----
 winning_boards = []
@@ -58,6 +60,11 @@ for n in numbers:
         if b_value > 0:
             winning_boards.append((k, n, b_value))
             log_boards.append(k)
+
+
+print('\n')
+
+print(len(winning_boards))
 
 print('First winning board is', winning_boards[0][0], 'with value', winning_boards[0][1]*winning_boards[0][2])
 
